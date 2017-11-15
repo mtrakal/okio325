@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "cz.mtrakal.okio325"
+        minSdkVersion 16
+        targetSdkVersion 25
+
+        multiDexEnabled true
+        versionCode 4224
+        versionName "4.9.24"
+        vectorDrawables.useSupportLibrary = false
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("${rootDir}/debug.jks")
+            storePassword "debug1"
+            keyAlias "debug"
+            keyPassword "debug1"
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled true
+            signingConfig signingConfigs.releaseConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            signingConfig signingConfigs.releaseConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+}
